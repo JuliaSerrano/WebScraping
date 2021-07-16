@@ -6,6 +6,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
+#Coordenadas fuera de rango, cómo hacer para cargar la info de los articulos ?
+
 
 url2 = "https://www.idealista.com/alquiler-viviendas/madrid/hortaleza/valdebebas-valdefuentes/"
 url ="https://www.fotocasa.es/es/alquiler/viviendas/madrid-capital/valdebebas-valdefuentes/l?latitude=40.4907&longitude=-3.6255&combinedLocationIds=724,14,28,173,0,28079,0,678,92"
@@ -42,12 +44,20 @@ def y_coordinate(class_name):
     
 
 
-#Find each article and get the url (no funciona)
+#Find each article and get the url 
+#Problem: Can't access the href's of articles until they're loaded
+    #Solutions:
+        #1. Wait until the page is loaded ----> Still can't access
+        #2. Scroll to the button ----> Still can't access
+        #3. In the loop when obtaining each article, scroll to them
 def get_href():
 
     section = driver.find_element_by_class_name('re-Searchresult')
-    articles = section.find_elements_by_class_name('re-Searchresult-itemRow')
-    
+    articles = section.find_elements_by_xpath("//*[@class='re-Searchresult-itemRow']")
+    for article in articles:
+
+        print(article.text)
+    #Solution 1 ----> not working
     #wait until the page is loaded, otherwise we can't access the href's of articles
     # try:
     #     myElem = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, 're-Searchpage-subtitle')))
@@ -58,20 +68,36 @@ def get_href():
 
     #Page seems to be loaded, but still can't access the href's ---> scroll to the button
     
-    class_name = "re-SharedFooter-legalWrapper"
-    footer = driver.find_element_by_class_name(class_name)
+    #Solution 2 -------> not working 
+    # class_name = "re-SharedFooter-legalWrapper"
+    # footer = driver.find_element_by_class_name(class_name)
     actions = ActionChains(driver)
     #xoffset, yoffset
-    x = x_coordinate(class_name)
-    y = y_coordinate(class_name)
-    actions.move_to_element_with_offset(footer,x,y).perform()
+    # x = x_coordinate(class_name)
+    # y = y_coordinate(class_name)
+    # actions.move_to_element_with_offset(footer,x,y).perform()
     #Scroll to the top
     # top = driver.find_element_by_class_name('re-SearchTitle-title')
     # actions.move_to_element
     #WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, 're-Card-link')))
+    
+#Solution 3 ----> xpath for each article isn't working
+#Solution 4 ----> keyDown to footer
+    
+    
+    contador = 0
     for article in articles:
-        child_class = article.find_element_by_class_name('re-Card-link')
+        driver.find_element_by_xpath('//body').send_keys(Keys.CONTROL+Keys.END)
+        
+        #Scroll to the article
+        #article_scroll = driver.find_element_by_xpath("/")
+        #actions.move_to_element(article_scroll)
+        #child_class = article.find_element_by_class_name('re-Card-link')
+        child_class = article.find_element_by_xpath("//*[@class='re-Card-link']")
+        contador+= 1
+        print(contador)
         print(child_class.get_attribute('href'))
+    
     
         
 
