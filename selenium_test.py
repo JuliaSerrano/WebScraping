@@ -76,27 +76,30 @@ def get_href():
 #scrapes by using get_href() method, and turns to the next
 #page (until the last one) and scrapes it 
 def pages():
-        driver.find_element_by_xpath(
+    driver.find_element_by_xpath(
                 '//body').send_keys(Keys.CONTROL+Keys.END)
-        time.sleep(1)
+    time.sleep(1)
         
         
-        curr_url = driver.current_url
+    curr_url = driver.current_url
         
-        #next page btn to click
-        last_li = driver.find_element_by_xpath("//*[@class='sui-MoleculePagination']/li [last()]/a")
+    #next page btn to click
+    last_li = driver.find_element_by_xpath("//*[@class='sui-MoleculePagination']/li [last()]/a")
         
-        #link of the last li
-        last_link_li = last_li.get_attribute('href')
+    #link of the last li
+    last_link_li = last_li.get_attribute('href')
         
-        if curr_url == last_link_li: #last page, scrape and finish
-            #get_href()
-            print("Hemos llegado a la ultima pag")
-            #return res
-        else: #not last page, scrape and turn to the next one
-            #get_href()
-            print("todavia no estamos en la ultima pag, pasar pag")
-            last_li.click()
+    while curr_url != last_link_li: #not last page, scrape and turn to the next one
+        #get_href()
+        print("todavia no estamos en la ultima pag, pasar pag")
+        last_li.click()
+        
+    #last page, scrape and finish
+    #get_href()
+    print("Hemos llegado a la ultima pag")
+    #return res
+        
+            
 
 
 def export_excel(title):
