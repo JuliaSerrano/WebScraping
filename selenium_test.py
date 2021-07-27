@@ -8,7 +8,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 from openpyxl import Workbook
 import xlsxwriter
 import time
+import requests
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.chrome.options import Options
+
 
 #! Obtener todos los links de una pag                         ---NOT DONE---   error en la iteracion de articulos, solo devuelve el 1º
 # Obtener los de las demás páginas                            ---  DONE  ---
@@ -26,6 +29,9 @@ from selenium.common.exceptions import NoSuchElementException
 
 url2 = "https://www.idealista.com/alquiler-viviendas/madrid/hortaleza/valdebebas-valdefuentes/"
 url = "https://www.fotocasa.es/es/alquiler/viviendas/madrid-capital/valdebebas-valdefuentes/l?latitude=40.4907&longitude=-3.6255&combinedLocationIds=724,14,28,173,0,28079,0,678,92"
+
+
+
 driver = webdriver.Chrome()
 
 driver.get(url)
@@ -40,35 +46,76 @@ button_accept = driver.find_element_by_xpath(
 button_accept.click()
 
 
-
+def document_initialised(driver):
+    return driver.execute_script("return initialised")
 
 
 #returns the links of all the articles in one page
 def get_href():
 
-    section = driver.find_element_by_class_name('re-Searchresult')
-    articles = section.find_elements_by_xpath(
+
+    
+    # section = driver.find_element_by_class_name('re-Searchresult')
+    # time.sleep(5)
+    articles = driver.find_elements_by_xpath(
         "//*[@class='re-Searchresult-itemRow']")
+    print(len(articles))
+    # if articles[0].is_displayed():
+    #     print("article 0")
+    #     print(articles[0])
+    #     print("\n")
+    # if articles[1].is_displayed():
+    #     print("article 1")
+    #     print(articles[1])
+    #     print("\n")
+    # if articles[9].is_displayed():
+    #     print("article 9")
+    #     print(articles[9])
+    #     print("\n")
+    # if articles[29].is_displayed():
+    #     print("article 29")
+    #     print(articles[29])
+    #     print("\n")
     res = []
     
-    #Solo me da el primer elemento, arreglar for
-    for article in articles:
-        
-        # scroll down
-        driver.find_element_by_xpath(
+    #scroll down
+    driver.find_element_by_xpath(
             '//body').send_keys(Keys.CONTROL+Keys.END)
-
-        # child class which contains the attribute href
-        child_class = article.find_element_by_xpath(
-            "//*[@class='re-Searchresult-itemRow']/div/div[last()]/a")
-        #child_class_aux = article.find_element_by_xpath(
-            #   "//*[@class='re-Card-link']")
+    #Solo me da el primer elemento, arreglar for
+    contador = 0
+    body = driver.find_element_by_css_selector('body')
+    body.send_keys(Keys.PAGE_DOWN)
+    for article in articles:
+          
+          #time.sleep(3)
+          if(articles[contador]).is_displayed():
+            print("article " + str(contador) + " is Displayed")
+            print("\n")
+            #child class which contains the attribute href
+            try:
+                child_class = article.find_element_by_css_selector(
+                'div > div > a')
             
-        print(child_class.get_attribute('href'))
-        res.append(child_class.get_attribute('href'))
-
-    #print(res)
-    
+            except NoSuchElementException:
+                print("NoSuchElementException")
+                element = driver.find_element_by_class_name('re-SharedTopbar')
+                action = ActionChains(driver)
+                action.move_to_element(element).perform()
+                time.sleep(3)    
+                
+                
+            href =  child_class.get_attribute('href')
+            print(href)
+            res.append(href)
+            print("href appended " + str(contador))
+            contador += 1
+            
+        
+        
+        
+        
+    print(res)
+    print(len(res))
 
 
             
@@ -125,4 +172,9 @@ get_href()
 
 # print(get_href())
 # export_excel("prueba.xlsx")
+
+
+
+
+
 driver.close()
