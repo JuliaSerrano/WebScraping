@@ -28,7 +28,7 @@ from selenium.webdriver.chrome.options import Options
 
 
 
-url = "https://www.fotocasa.es/es/alquiler/viviendas/madrid-capital/valdebebas-valdefuentes/l?latitude=40.4907&longitude=-3.6255&combinedLocationIds=724,14,28,173,0,28079,0,678,92"
+url = "https://www.fotocasa.es/es/alquiler/viviendas/la-moraleja/todas-las-zonas/l?latitude=40.5169&longitude=-3.6308&combinedLocationIds=724,14,28,167,282,28800,0,0,0"
 
 
 
@@ -46,7 +46,7 @@ button_accept = driver.find_element_by_xpath(
     "//button[@data-testid='TcfAccept']")
 button_accept.click()
 
-
+#array result which is going to contain all the links
 res = []
 
 
@@ -62,7 +62,7 @@ def get_href():
     #articles we're going to get the href from
     articles = driver.find_elements_by_xpath(
         "//*[@class='re-Searchresult-itemRow re-Searchresult-itemRow--collageAYCE re-Searchresult-itemRow--simple']")
-    print(len(articles))
+    
     
     
     #array with all the href's scraped
@@ -78,15 +78,13 @@ def get_href():
     for article in articles:
           
         time.sleep(3)
-          
-
-            #child class which contains the attribute href
-
+        
         try:
+            #child class which contains the attribute href
             child_class = article.find_element_by_css_selector(
                 'div > div > a')
             
-        #Some of the articles may not been activated when scrolling down,
+        #Some of the articles may not have been activated when scrolling down,
         #so we scroll up
         except NoSuchElementException:
             print("NoSuchElementException")
@@ -107,48 +105,44 @@ def get_href():
         
         
         
-    print(res)
-    #print(len(res))
+    
     return res
 
             
   
 
-#scrapes by using get_href() method, and turns to the next
-#page (until the last one) and scrapes it 
+#scrapes each page by using get_href() method
 def pages():
+    
     driver.find_element_by_xpath(
                 '//body').send_keys(Keys.CONTROL+Keys.END)
     time.sleep(1)
-        
-        
-    curr_url = driver.current_url
-    
-    
-    time.sleep(1)
+
     #next page btn to click
     last_li = driver.find_element_by_xpath("//*[@class='sui-MoleculePagination']/li [last()]/a")
+    
     #link of the last li
     last_link_li = last_li.get_attribute('href')
-    finished = False
-    while not finished :
-        if(curr_url == last_link_li): #estamos en la ultima pag
-            print("Last page")
-            get_href()
-            finished = True
-        else:
-            print("not last page")
-            get_href()
-            driver.get(last_link_li)
-            time.sleep(1)
-            curr_url = driver.current_url
+    
+    page = 1
+    for i in range(num_pages()):
+        print("We're on page : ")
+        print(page)
+        
+        #scrape
+        get_href()
+        
+        #next page
+        driver.get(last_link_li)
+        time.sleep(1)
+        page+= 1
         
     print(res) 
     
     
 
         
-
+#exports to excel res with each link in a row
 def export_excel(title):
     workbook = xlsxwriter.Workbook(title)
     worksheet = workbook.add_worksheet()
@@ -167,14 +161,23 @@ def export_excel(title):
     workbook.close()
 
 
+#returns the number of pages the link has, so we can turn and scrape each one
+def num_pages():
+    driver.find_element_by_xpath(
+                '//body').send_keys(Keys.CONTROL+Keys.END)
+    time.sleep(1)
+    last_page = driver.find_element_by_xpath("//*[@class='sui-MoleculePagination']/li [last()-1]/a/span")
+    return int(last_page.text)
+    
 
 
-#pages()
+
 
 
 #get_href()
-export_excel("prueba.xlsx")
+export_excel("LaMoraleja.xlsx")
 
+#num_pages()
 
 
 
