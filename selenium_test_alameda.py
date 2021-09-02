@@ -72,7 +72,7 @@ def get_href():
     driver.find_element_by_xpath(
             '//body').send_keys(Keys.CONTROL+Keys.END)
 
-    count = 0
+    count = 1
     body = driver.find_element_by_css_selector('body')
     body.send_keys(Keys.PAGE_DOWN)
     for article in articles:
@@ -123,8 +123,8 @@ def pages():
         
         
     curr_url = driver.current_url
-    lis = driver.find_elements_by_class_name('sui-MoleculePagination-item')
-    num_lis = len(lis)
+    
+    
     time.sleep(1)
     #next page btn to click
     last_li = driver.find_element_by_xpath("//*[@class='sui-MoleculePagination']/li [last()]/a")
@@ -146,27 +146,14 @@ def pages():
     print(res) 
     
     
-   # btn_next = driver.find_element_by_class_name("//*[@class='sui-LinkBasic sui-AtomButton sui-AtomButton--primary sui-AtomButton--outline sui-AtomButton--center sui-AtomButton--small sui-AtomButton--link sui-AtomButton--empty']").get_attribute('href')
-   # while curr_url != last_link_li: #not last page, scrape and turn to the next one
-    #    get_href()
-     #   print("todavia no estamos en la ultima pag, pasar pag")
-      #  last_li.click()
-       # curr_url = driver.current_url
-        
-        #last_li = driver.find_element_by_xpath("//*[@class='sui-MoleculePagination']/li [last()]/a")
-        
-    #last page, scrape and finish
-    #get_href()
-    #print("Hemos llegado a la ultima pag")
-    #return res
-        
-            
 
+        
 
 def export_excel(title):
     workbook = xlsxwriter.Workbook(title)
     worksheet = workbook.add_worksheet()
-    hrefs = pages()
+    pages()
+    hrefs = res
     row = 0
     col = 0
     index = 1
