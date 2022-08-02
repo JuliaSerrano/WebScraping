@@ -2,6 +2,8 @@ import requests
 
 data = []
 url = "https://api.fotocasa.es/PropertySearch/Search"
+
+#makes a request for each page, returning json/page
 def request(number_pages):
 
     for x in range(1,number_pages+1):
