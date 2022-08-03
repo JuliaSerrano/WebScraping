@@ -12,10 +12,20 @@ url =[]
 mobile = []
 real_estate = []
 
-#number of pages
-num_pags = -1
 
-#open and load json from raw responde (obtained with insomnia)
+
+#dic with query parametres from search
+#combinedLocationIds,latitude,longitude
+query_param = {
+    "alcobendas": ['724,14,28,167,282,28006,0,0,0'],
+    "majadahonda": ['724,14,28,172,221,28080,0,0,0','40.4733','-3.87275'],
+
+}
+
+#?acceder al numero de paginas con selenium?, de alguna otra forma
+
+
+#open and load json from raw response (obtained with insomnia)
 # raw = 'fotocasa_1_alcobendas.json'
 def open_json(raw_json):
 
@@ -28,8 +38,16 @@ def open_json(raw_json):
     #numero de paginas
     num_pags = math.ceil(num_viv/30)
     return jsondata
-    # data = request(num_pags)
-    # jsondata = data[0]
+
+#!when functionning only use open_json, not make a request each time
+
+#open and load json from request 
+def open_json_request(number_pages,query_param):
+    data = []
+    data = request(number_pages,query_param)
+    return data
+
+
 
 def extract_data(jsondata,url,mobile,real_estate):
 
@@ -55,7 +73,7 @@ def export_csv(name_csv,url,mobile,real_estate):
 
 
 #export to excel, higlight when property not linked to a real estate agency
-def export_excel(name_xlsx,url,mobile,real_estate):
+def export_excel(name_xlsx,url,mobile,real_estate,number_pages):
     # open an Excel workbook
     workbook = xlsxwriter.Workbook(name_xlsx)
 
@@ -70,6 +88,8 @@ def export_excel(name_xlsx,url,mobile,real_estate):
     worksheet.write(0,1,'url')
     worksheet.write(0,2,'mobile')
     worksheet.write(0,3,'real_estate')   
+
+
 
     #write extracted data
     i = 1
@@ -86,21 +106,18 @@ def export_excel(name_xlsx,url,mobile,real_estate):
             #real_estate
             worksheet.write(i,3,real_estate[i-1],special_format)
 
-        #write as normal format
+        #write as normal format when real estate agency already linked
         else:
             #index
             worksheet.write(i,0,i)
-
             #url
             worksheet.write(i,1,url[i-1])
-
             #mobile
             worksheet.write(i,2,mobile[i-1])
-
             #real_estate
             worksheet.write(i,3,real_estate[i-1])
-
         i += 1
+    
     workbook.close()
 
         
@@ -109,10 +126,20 @@ def export_excel(name_xlsx,url,mobile,real_estate):
 
 
 def main():
-    jsondata = open_json('fotocasa_1_alcobendas.json')
-    extract_data(jsondata,url,mobile,real_estate)
-    # export_csv("./file.csv",url,mobile,real_estate)
-    export_excel('file.xlsx',url,mobile,real_estate)
+    #data = open_json('fotocasa_1_alcobendas.json')
+    number_pages = 6
+    # #request for each page, store in data
+    data = open_json_request(number_pages,query_param)
+
+    #for each page, extract data and export to excel
+    for jsondata in data:
+        extract_data(jsondata,url,mobile,real_estate)
+        # print(f"{url}\n")
+        # export_csv("./file.csv",url,mobile,real_estate)
+        export_excel('fotocasaPRUEBA4.xlsx',url,mobile,real_estate,number_pages)
+
     
+   
+
 if __name__ == '__main__':
     main()
