@@ -1,4 +1,4 @@
-import requests
+
 import pandas as pd
 import json
 import math
@@ -17,8 +17,17 @@ real_estate = []
 #dic with query parametres from search
 #combinedLocationIds,latitude,longitude
 query_param = {
-    "alcobendas": ['724,14,28,167,282,28006,0,0,0'],
+    "alcobendas": ['724,14,28,167,282,28006,0,0,0', '',''],
     "majadahonda": ['724,14,28,172,221,28080,0,0,0','40.4733','-3.87275'],
+    "valdebebas":['','',''],
+    "sanchinarro":['','',''],
+    "las tablas": ['','',''],
+    "soto de la moraleja":['','',''],
+    "alcobendas":['','',''],
+    "arroyo de la vega":['','',''],
+    "san sebastian de los reyes":['','',''],
+    "barajas":['','',''],
+    "timon":['','','']
 
 }
 

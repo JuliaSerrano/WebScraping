@@ -1,5 +1,6 @@
-LaMoraleja.xlsx
-prueba.xlsx
-SanBlas.xlsx
-.~lock.LaMoraleja.xlsx#
 
+.~lock.LaMoraleja.xlsx#
+__pycache__/
+*.json
+*.xlsx
+*.csv
