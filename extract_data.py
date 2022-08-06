@@ -2,7 +2,7 @@
 
 link = 'https://www.fotocasa.es'
 
-def extract_data(jsondata,url,mobile,real_estate):
+def extract_data(jsondata,url,mobile,real_estate,type_id):
 
     #iterate for each property
     for home in jsondata['realEstates']:
@@ -14,5 +14,8 @@ def extract_data(jsondata,url,mobile,real_estate):
 
         #extract real estate
         real_estate.append(home['advertiser']['clientAlias'])
+
+        #type id (if 1 -> agency notlinked)
+        type_id.append(home['advertiser']['typeId'])
 
 

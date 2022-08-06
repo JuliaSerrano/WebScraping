@@ -11,7 +11,7 @@ def export_csv(name_csv,url,mobile,real_estate):
 
 
 #export to excel, higlight when property not linked to a real estate agency
-def export_excel(name_xlsx,url,mobile,real_estate,number_pages):
+def export_excel(name_xlsx,url,mobile,real_estate,type_id):
     # open an Excel workbook
     workbook = xlsxwriter.Workbook(name_xlsx)
 
@@ -26,6 +26,7 @@ def export_excel(name_xlsx,url,mobile,real_estate,number_pages):
     worksheet.write(0,1,'url')
     worksheet.write(0,2,'mobile')
     worksheet.write(0,3,'real_estate')   
+    worksheet.write(0,4,'typeId')
 
 
 
@@ -34,7 +35,7 @@ def export_excel(name_xlsx,url,mobile,real_estate,number_pages):
     while i <= len(url):
 
         #highlight when real estate agency not linked
-        if not real_estate[i-1]:
+        if type_id[i-1] == 1:
             #index
             worksheet.write(i,0,i,special_format)
             #url
@@ -43,6 +44,8 @@ def export_excel(name_xlsx,url,mobile,real_estate,number_pages):
             worksheet.write(i,2,mobile[i-1],special_format)
             #real_estate
             worksheet.write(i,3,real_estate[i-1],special_format)
+            #type_id
+            worksheet.write(i,4,type_id[i-1],special_format)
 
         #write as normal format when real estate agency already linked
         else:
@@ -54,6 +57,8 @@ def export_excel(name_xlsx,url,mobile,real_estate,number_pages):
             worksheet.write(i,2,mobile[i-1])
             #real_estate
             worksheet.write(i,3,real_estate[i-1])
+            #type_id
+            worksheet.write(i,4,type_id[i-1])
         i += 1
     
     workbook.close()
