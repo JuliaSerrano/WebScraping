@@ -19,7 +19,7 @@ def open_json(raw_json):
 #!when functionning only use open_json, not make a request each time
 
 #open and load json from request 
-def open_json_request(location,number_pages,query_param):
+def open_json_request(location,number_pages,query_param,trans_type):
     data = []
-    data = request(location,number_pages,query_param)
+    data = request(location,number_pages,query_param,trans_type)
     return data

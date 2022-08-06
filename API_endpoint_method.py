@@ -41,16 +41,20 @@ query_param = {
 
 def main():
     #scan input from user:
-    location = input('Which location do you want to scrape?\n')
-    #location = 'majadahonda'
-
-    number_pages = input('What are the number of pages?\n')
-    number_pages = int(number_pages)
-    #number_pages = 6
-
-
+    while True:
+        location = input('Which location do you want to scrape?\n').lower()
+        print('Type the transaction type(number):\n 1:Buy\n 3:Rent')
+        trans_type = int(input())
+        number_pages = int(input('What are the number of pages?\n'))
+       
+        if(location not in query_param):
+            print("Invalid location")
+            continue
+        else:
+            print("Valid location")
+            break
     #request for each page, store in data
-    data = open_json_request(location,number_pages,query_param)
+    data = open_json_request(location,number_pages,query_param,trans_type)
 
     #for each page, extract data and export to excel
     for jsondata in data:
@@ -58,6 +62,7 @@ def main():
         #print(f"{url}\n")
         #export_csv("./file.csv",url,mobile,real_estate)
     export_excel('prueba.xlsx',url,mobile,real_estate,type_id)
+    print("Location scraped")
 
    
    

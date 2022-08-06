@@ -4,7 +4,7 @@ data = []
 url = "https://api.fotocasa.es/PropertySearch/Search"
 
 #makes a request for each page, returning json/page
-def request(location,number_pages,query_param):
+def request(location,number_pages,query_param,trans_type):
 
     #change majadahonda por zona elegida
     for x in range(1,number_pages+1):
@@ -20,7 +20,7 @@ def request(location,number_pages,query_param):
         "platformId":"1",
         "sortOrderDesc":"true",
         "sortType":"scoring",
-        "transactionTypeId":"1",
+        "transactionTypeId":f"{trans_type}",
         "propertyTypeId":"2"
         }
 
