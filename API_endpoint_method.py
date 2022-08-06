@@ -12,6 +12,7 @@ url =[]
 mobile = []
 real_estate = []
 type_id = []
+date = []
 
 #dic with query parametres from search
 #combinedLocationIds,latitude,longitude
@@ -58,10 +59,10 @@ def main():
 
     #for each page, extract data and export to excel
     for jsondata in data:
-        extract_data(jsondata,url,mobile,real_estate,type_id)
+        extract_data(jsondata,url,mobile,real_estate,type_id,date)
         #print(f"{url}\n")
         #export_csv("./file.csv",url,mobile,real_estate)
-    export_excel('prueba.xlsx',url,mobile,real_estate,type_id)
+    export_excel('prueba.xlsx',url,mobile,real_estate,type_id,date)
     print("Location scraped")
 
    

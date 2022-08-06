@@ -11,7 +11,7 @@ def export_csv(name_csv,url,mobile,real_estate):
 
 
 #export to excel, higlight when property not linked to a real estate agency
-def export_excel(name_xlsx,url,mobile,real_estate,type_id):
+def export_excel(name_xlsx,url,mobile,real_estate,type_id,date):
     # open an Excel workbook
     workbook = xlsxwriter.Workbook(name_xlsx)
 
@@ -22,11 +22,13 @@ def export_excel(name_xlsx,url,mobile,real_estate,type_id):
     worksheet = workbook.add_worksheet()
 
     #write headers
-    worksheet.write(0,0,'index')
-    worksheet.write(0,1,'url')
-    worksheet.write(0,2,'mobile')
-    worksheet.write(0,3,'real_estate')   
-    worksheet.write(0,4,'typeId')
+    header_format = workbook.add_format(properties={'bold': True,'align':'centre'})
+    worksheet.write(0,0,'index',header_format)
+    worksheet.write(0,1,'url',header_format)
+    worksheet.write(0,2,'mobile',header_format)
+    worksheet.write(0,3,'real_estate',header_format)   
+    worksheet.write(0,4,'typeId',header_format)
+    worksheet.write(0,5,'date',header_format)
 
 
 
@@ -46,6 +48,9 @@ def export_excel(name_xlsx,url,mobile,real_estate,type_id):
             worksheet.write(i,3,real_estate[i-1],special_format)
             #type_id
             worksheet.write(i,4,type_id[i-1],special_format)
+            #date
+            worksheet.write(i,5,date[i-1],special_format)
+
 
         #write as normal format when real estate agency already linked
         else:
@@ -59,6 +64,8 @@ def export_excel(name_xlsx,url,mobile,real_estate,type_id):
             worksheet.write(i,3,real_estate[i-1])
             #type_id
             worksheet.write(i,4,type_id[i-1])
+            #date
+            worksheet.write(i,5,date[i-1])
         i += 1
     
     workbook.close()
