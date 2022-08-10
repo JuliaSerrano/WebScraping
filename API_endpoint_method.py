@@ -5,8 +5,6 @@ from exports import export_csv,export_excel
 from extract_data import extract_data
 
 
-
-
 #data to be extracted
 url =[]
 mobile = []
@@ -44,15 +42,15 @@ def main():
     #scan input from user:
     while True:
         location = input('Which location do you want to scrape?\n').lower()
-        print('Type the transaction type(number):\n 1:Buy\n 3:Rent')
-        trans_type = int(input())
-        number_pages = int(input('What are the number of pages?\n'))
-       
+        
         if(location not in query_param):
-            print("Invalid location")
+            print("Invalid location, try again")
             continue
         else:
             print("Valid location")
+            print('Type the transaction type(number):\n 1:Buy\n 3:Rent')
+            trans_type = int(input())
+            number_pages = int(input('What are the number of pages?\n'))
             break
     #request for each page, store in data
     data = open_json_request(location,number_pages,query_param,trans_type)
@@ -65,8 +63,7 @@ def main():
     export_excel('prueba.xlsx',url,mobile,real_estate,type_id,date)
     print("Location scraped")
 
-   
-   
+
 
 if __name__ == '__main__':
     main()

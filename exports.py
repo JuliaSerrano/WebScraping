@@ -1,5 +1,6 @@
 import pandas as pd
 import xlsxwriter
+import datetime
 
 #create data frame and export to csv
 # name_csv = "./file.csv"
@@ -29,9 +30,10 @@ def export_excel(name_xlsx,url,mobile,real_estate,type_id,date):
     worksheet.write(0,3,'real_estate',header_format)   
     worksheet.write(0,4,'typeId',header_format)
     worksheet.write(0,5,'date',header_format)
+    worksheet.write(0,6,'retrieved date',header_format)
 
-
-
+   
+    today_date = datetime.datetime.now().strftime("%Y-%m-%d")
     #write extracted data
     i = 1
     while i <= len(url):
@@ -50,7 +52,8 @@ def export_excel(name_xlsx,url,mobile,real_estate,type_id,date):
             worksheet.write(i,4,type_id[i-1],special_format)
             #date
             worksheet.write(i,5,date[i-1],special_format)
-
+            #retrieved date
+            worksheet.write(i,6,today_date,special_format)
 
         #write as normal format when real estate agency already linked
         else:
@@ -66,6 +69,8 @@ def export_excel(name_xlsx,url,mobile,real_estate,type_id,date):
             worksheet.write(i,4,type_id[i-1])
             #date
             worksheet.write(i,5,date[i-1])
+            #retrieved date
+            worksheet.write(i,6,today_date)
         i += 1
     
     workbook.close()
