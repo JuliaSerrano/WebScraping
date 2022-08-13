@@ -3,6 +3,7 @@
 from load_json import open_json,open_json_request
 from exports import export_csv,export_excel
 from extract_data import extract_data
+from db import export_to_db,create_connection,create_table
 
 
 #data to be extracted
@@ -12,6 +13,7 @@ real_estate = []
 type_id = []
 date = []
 real_estate_id = []
+price = []
 
 #dic with query parametres from search
 #combinedLocationIds,latitude,longitude
@@ -58,13 +60,55 @@ def main():
 
     #for each page, extract data and export to excel
     for jsondata in data:
-        extract_data(jsondata,url,mobile,real_estate,type_id,date,real_estate_id)
+        extract_data(jsondata,url,mobile,real_estate,type_id,date,real_estate_id,price)
         #print(f"{url}\n")
         #export_csv("./file.csv",url,mobile,real_estate)
-    export_excel('prueba.xlsx',url,mobile,real_estate,type_id,date,real_estate_id)
-    print("Location scraped")
+    export_excel('prueba.xlsx',url,mobile,real_estate,type_id,date,real_estate_id,price)
+    print("Location scraped and exported to excel")
+
+    # #database
+    database = 'pruebita.db'
+
+    sql_create_properties_table = """ CREATE TABLE IF NOT EXISTS properties(
+        id_product INTEGER PRIMARY KEY AUTOINCREMENT,
+        retrieved_date DATETIME NOT NULL,
+        created_date DATETIME,
+        url TEXT NOT NULL,
+        mobile INTEGER,
+        agency TEXT,
+        real_estate_id INTEGER NOT NULL,
+        price INTEGER
+        
+    ); """
+
+    
+    sql_create_price_history_table=""" CREATE TABLE IF NOT EXISTS price_history(
+        id_price_date PRIMARY KEY,
+        id_product INTEGER,
+        retrieved_date DATETIME NOT NULL,
+        price INTEGER,
+		FOREIGN KEY(id_product) REFERENCES properties(id_product)
+    ); """
 
 
+
+    # # create a database connection
+    conn = create_connection(database)
+
+    #create tables
+    if conn is not None:
+        # create properties table
+        create_table(conn, sql_create_properties_table)
+
+        #create price_history table
+        create_table(conn, sql_create_price_history_table)
+
+    else:
+        print("Error! cannot create the database connection.")
+
+    #insert into tables
+    export_to_db(conn,url,mobile,real_estate,date,real_estate_id,price)
+    print('Data exported to database succesfully')
 
 
 
