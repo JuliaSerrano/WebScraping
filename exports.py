@@ -12,7 +12,7 @@ def export_csv(name_csv,url,mobile,real_estate):
 
 
 #export to excel, higlight when property not linked to a real estate agency
-def export_excel(name_xlsx,url,mobile,real_estate,type_id,date,real_estate_id):
+def export_excel(name_xlsx,url,mobile,real_estate,type_id,date,real_estate_id,price):
     # open an Excel workbook
     workbook = xlsxwriter.Workbook(name_xlsx)
 
@@ -32,7 +32,7 @@ def export_excel(name_xlsx,url,mobile,real_estate,type_id,date,real_estate_id):
     worksheet.write(0,5,'date',header_format)
     worksheet.write(0,6,'retrieved date',header_format)
     worksheet.write(0,7,'real estate id',header_format)
-
+    worksheet.write(0,8,'price',header_format)
    
     today_date = datetime.datetime.now().strftime("%Y-%m-%d")
     #write extracted data
@@ -57,6 +57,8 @@ def export_excel(name_xlsx,url,mobile,real_estate,type_id,date,real_estate_id):
             worksheet.write(i,6,today_date,special_format)
             #real estate id
             worksheet.write(i,7,real_estate_id[i-1],special_format)
+            #price
+            worksheet.write(i,8,price[i-1],special_format)
 
         #write as normal format when real estate agency already linked
         else:
@@ -76,6 +78,8 @@ def export_excel(name_xlsx,url,mobile,real_estate,type_id,date,real_estate_id):
             worksheet.write(i,6,today_date)
             #real estate id
             worksheet.write(i,7,real_estate_id[i-1])
+            #price
+            worksheet.write(i,8,price[i-1])
         i += 1
     
     workbook.close()

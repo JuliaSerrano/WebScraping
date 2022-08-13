@@ -2,7 +2,7 @@
 
 link = 'https://www.fotocasa.es'
 
-def extract_data(jsondata,url,mobile,real_estate,type_id,date,real_estate_id):
+def extract_data(jsondata,url,mobile,real_estate,type_id,date,real_estate_id,price):
 
     #iterate for each property
     for home in jsondata['realEstates']:
@@ -21,7 +21,10 @@ def extract_data(jsondata,url,mobile,real_estate,type_id,date,real_estate_id):
         #date after T, it gets time. Only get date
         date.append((home['date']).partition("T")[0])
 
-        #real estate id
+        #extract real estate id
         real_estate_id.append((home['id']))
+
+        #extract price
+        price.append(int(home['transactions'][0]['value'][0]))
 
 
