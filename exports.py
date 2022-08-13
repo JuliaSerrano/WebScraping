@@ -12,7 +12,7 @@ def export_csv(name_csv,url,mobile,real_estate):
 
 
 #export to excel, higlight when property not linked to a real estate agency
-def export_excel(name_xlsx,url,mobile,real_estate,type_id,date,real_estate_id,price):
+def export_excel(name_xlsx,url,mobile,real_estate,type_id,date,real_estate_id,price,trans_type_id):
     # open an Excel workbook
     workbook = xlsxwriter.Workbook(name_xlsx)
 
@@ -59,6 +59,8 @@ def export_excel(name_xlsx,url,mobile,real_estate,type_id,date,real_estate_id,pr
             worksheet.write(i,7,real_estate_id[i-1],special_format)
             #price
             worksheet.write(i,8,price[i-1],special_format)
+            #transactionTypeId, Buy or Rent
+            worksheet.write(i,9,trans_type_id[i-1],special_format)
 
         #write as normal format when real estate agency already linked
         else:
@@ -80,6 +82,8 @@ def export_excel(name_xlsx,url,mobile,real_estate,type_id,date,real_estate_id,pr
             worksheet.write(i,7,real_estate_id[i-1])
             #price
             worksheet.write(i,8,price[i-1])
+            #transactionTypeId, Buy or Rent
+            worksheet.write(i,9,trans_type_id[i-1])
         i += 1
     
     workbook.close()

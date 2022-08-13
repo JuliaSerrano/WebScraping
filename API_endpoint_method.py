@@ -14,6 +14,7 @@ type_id = []
 date = []
 real_estate_id = []
 price = []
+trans_type_id = []
 
 #dic with query parametres from search
 #combinedLocationIds,latitude,longitude
@@ -60,14 +61,14 @@ def main():
 
     #for each page, extract data and export to excel
     for jsondata in data:
-        extract_data(jsondata,url,mobile,real_estate,type_id,date,real_estate_id,price)
+        extract_data(jsondata,url,mobile,real_estate,type_id,date,real_estate_id,price,trans_type_id)
         #print(f"{url}\n")
         #export_csv("./file.csv",url,mobile,real_estate)
-    export_excel('prueba.xlsx',url,mobile,real_estate,type_id,date,real_estate_id,price)
+    export_excel('prueba.xlsx',url,mobile,real_estate,type_id,date,real_estate_id,price,trans_type_id)
     print("Location scraped and exported to excel")
 
     # #database
-    database = 'pruebita.db'
+    database = 'pruebita2.db'
 
     sql_create_properties_table = """ CREATE TABLE IF NOT EXISTS properties(
         id_product INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -77,7 +78,9 @@ def main():
         mobile INTEGER,
         agency TEXT,
         real_estate_id INTEGER NOT NULL,
-        price INTEGER
+        price INTEGER,
+        type_id INTEGER,
+        trans_type_id INTEGER
         
     ); """
 
@@ -107,7 +110,7 @@ def main():
         print("Error! cannot create the database connection.")
 
     #insert into tables
-    export_to_db(conn,url,mobile,real_estate,date,real_estate_id,price)
+    export_to_db(conn,url,mobile,real_estate,date,real_estate_id,price,type_id,trans_type_id)
     print('Data exported to database succesfully')
 
 

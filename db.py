@@ -39,8 +39,8 @@ def insert_property(conn,property):
     :param property: 
     :return property id
     """
-    sql =  ''' INSERT INTO properties(retrieved_date,created_date,url,mobile,agency,real_estate_id,price)
-              VALUES(?,?,?,?,?,?,?) '''
+    sql =  ''' INSERT INTO properties(retrieved_date,created_date,url,mobile,agency,real_estate_id,price,type_id,trans_type_id)
+              VALUES(?,?,?,?,?,?,?,?,?) '''
 
     c = conn.cursor()
     c.execute(sql,property)
@@ -65,14 +65,14 @@ def insert_price_history(conn,price_history):
 
 
 
-def export_to_db(conn,url,mobile,real_estate,date,real_estate_id,price):
+def export_to_db(conn,url,mobile,real_estate,date,real_estate_id,price,type_id,trans_type_id):
     today_date = datetime.datetime.now().strftime("%Y-%m-%d")
     for i in range(0,len(url)):
         #properties
-        property = (today_date,date[i],url[i],mobile[i],real_estate[i],real_estate_id[i],price[i])
+        property = (today_date,date[i],url[i],mobile[i],real_estate[i],real_estate_id[i],price[i],type_id[i],trans_type_id[i])
         id_product = insert_property(conn,property)
 
-        #id_price_date, id_product,retrieved_date,price)
+        #price history
         price_history = (str(id_product)+today_date,id_product,today_date,price[i])
         insert_price_history(conn,price_history)
         
