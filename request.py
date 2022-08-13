@@ -42,7 +42,12 @@ def request(location,number_pages,query_param,trans_type):
         r = requests.request("GET", url, data=payload, headers=headers, params=querystring)
         data.append(r.json()) 
 
-    return data  
+    
+
+    return data 
+
+
+    
 
 
 

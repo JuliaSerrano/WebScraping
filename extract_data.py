@@ -2,7 +2,7 @@
 
 link = 'https://www.fotocasa.es'
 
-def extract_data(jsondata,url,mobile,real_estate,type_id,date,real_estate_id,price,trans_type_id):
+def extract_data(jsondata,url,mobile,real_estate,type_id,date,real_estate_id,price,trans_type_id,location):
 
     #iterate for each property
     for home in jsondata['realEstates']:
@@ -30,6 +30,9 @@ def extract_data(jsondata,url,mobile,real_estate,type_id,date,real_estate_id,pri
         #transactionTypeId
         #1 -> Buy  3 -> Rent
         trans_type_id.append(home['transactions'][0]['transactionTypeId'])
+
+        #location
+        location.append(home['address']['location']['level5'])
 
 
 
