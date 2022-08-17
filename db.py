@@ -61,6 +61,12 @@ def insert_price_history(conn,price_history):
     conn.commit()
     return c.lastrowid
 
+def update_particular(conn):
+    sql = '''  UPDATE properties SET agency = 'Particular' WHERE type_id = 1; '''
+    c = conn.cursor()
+    c.execute(sql)
+    conn.commit()
+
 
 
 
