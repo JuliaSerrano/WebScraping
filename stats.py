@@ -1,5 +1,6 @@
 #create stats from the db
 import sqlite3
+import matplotlib.pyplot as plt
 from db import create_connection
 
 def total_prop_location(conn,location):
@@ -9,12 +10,37 @@ def total_prop_location(conn,location):
     rows = c.fetchall()
     return rows[0][0]
 
-def perc_buy_rent(conn,trans_type,location):
-    sql = '''SELECT COUNT(*) FROM properties WHERE location = ? AND trans_type_id=?;'''
+def perc_buy_rent(conn,location):
+    perc_buy = 0
+    perc_rent = 0
+    sql = '''SELECT COUNT(*) FROM properties WHERE location = ? AND trans_type_id=1;'''
     c = conn.cursor()
-    c.execute(sql,[location,trans_type])
+    c.execute(sql,[location])
     rows = c.fetchall()
-    return rows[0][0]
+    perc =  ((rows[0][0]/total_prop_location(conn,location))*100)
+
+    #plot
+    labels = 'Buy', 'Rent'
+
+    perc_buy = perc
+    perc_rent = 100 - perc_buy
+
+    sizes = [perc_buy,perc_rent]
+    fig1, ax1 = plt.subplots()
+    ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
+            shadow=True, startangle=90)
+    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    plt.show()
+
+def majority_agency(conn,location):
+    sql = ''' SELECT agency,COUNT(*) FROM properties WHERE location = ?
+    GROUP BY agency
+    ORDER BY COUNT(*) DESC
+    LIMIT    5;'''
+    c = conn.cursor()
+    c.execute(sql,[location])
+    rows = c.fetchall()
+    print(rows)
 
 def main():
 
@@ -22,25 +48,22 @@ def main():
 
     # create a database connection
     conn = create_connection(database)
-    total = total_prop_location(conn,'Majadahonda')
-    num = perc_buy_rent(conn,1,'Majadahonda')
-    print(f"{(num/total)*100}%")
+
+#- [1]  Cual es el porcentaje de viviendas en alquiler/venta
+    perc_buy_rent(conn,'Majadahonda')
+
+#- [2]  Agencia mayoritaria en localidad
+    majority_agency(conn,'Majadahonda')
+
 
 
 main()
+
+
 """ 
-- [ ]  Cual es el porcentaje de viviendas en alquiler/venta
 
-sql = SELECT COUNT(*) FROM properties WHERE location = 'Majadahonda' AND trans_type_id=3;
-SELECT COUNT(*) FROM properties WHERE location = 'Majadahonda' AND trans_type_id=1;
 
-- [ ]  Agencia mayoritaria en localidad
-SELECT       agency
-    FROM     properties
-	WHERE    location = 'Alcobendas' AND trans_type_id = 3
-    GROUP BY agency
-    ORDER BY COUNT(*) DESC
-    LIMIT    5;
+
 
 
 - [ ]  Precio medio en localidad de compra/alquiler
