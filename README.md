@@ -11,7 +11,7 @@ I've used [Insomnia](https://github.com/Kong/insomnia) to check the query parame
 
 This project is divided in different files:
 
-- [API_endpoint_methoy.py](API_endpoint_methoy.py)
+- [API Endpoint Method](API_endpoint_method.py)
 
     It's the main file. All the query parameters of the locations chosen are stored here, if you want to scrape another location, the parameters of this location will need to be added.
 
@@ -45,7 +45,7 @@ This project is divided in different files:
     - Transaction Type ID (to know if the property is open for sell or rent)
     - Location
 
-- [Extract Data](exports.py)
+- [Exports](exports.py)
 
     This file consists of two methods:
 
