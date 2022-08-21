@@ -60,3 +60,24 @@ This project is divided in different files:
 - [Database](db.py)
 
 It creates a database connection to the SQLite database specified by a databse file, creates a table if not created and inserts the properties extracted.
+
+## Quickstart
+
+1. Install the dependencies
+
+
+- [Pandas](https://github.com/pandas-dev/pandas)
+- [Xlsxwriter](https://github.com/jmcnamara/XlsxWriter)
+- [Requests](https://github.com/psf/requests)
+- [Matplotlib](https://github.com/matplotlib/matplotlib)
+
+2. [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and [Clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) this repository and navigate into it
+```
+cd WebScraping
+```
+
+3. Run the script
+```
+python3 API_endpoint_method.py
+```
+
