@@ -119,7 +119,7 @@ def main():
 
     #insert into tables
     export_to_db(conn,url,mobile,real_estate,date,real_estate_id,price,type_id,trans_type_id,location)
-    update_particular()
+    update_particular(conn)
     print('Data exported to database succesfully')
 
 
