@@ -63,17 +63,15 @@ It creates a database connection to the SQLite database specified by a databse f
 
 ## Quickstart
 
-1. Install the dependencies
 
-
-- [Pandas](https://github.com/pandas-dev/pandas)
-- [Xlsxwriter](https://github.com/jmcnamara/XlsxWriter)
-- [Requests](https://github.com/psf/requests)
-- [Matplotlib](https://github.com/matplotlib/matplotlib)
-
-2. [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and [Clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) this repository and navigate into it
+1. [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and [Clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) this repository and navigate into it
 ```
 cd WebScraping
+```
+
+2. Install the dependencies
+```
+pip install -r requirements.txt
 ```
 
 3. Run the script
