@@ -1,5 +1,5 @@
 # Scraping Real Estate Properties
-This web scraping project extracts data from a given location by the API endpoint method.
+This web scraping project extracts real estate properties data from a given location by the API endpoint method.
 
 All the data retrieved is extracted to an excel workbook and inserted to a database which is previously created.
 
