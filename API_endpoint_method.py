@@ -68,7 +68,7 @@ def main():
 
     #for each page, extract data and export to excel
     for jsondata in data:
-        extract_data(jsondata,url,mobile,real_estate,type_id,date,real_estate_id,price,trans_type_id,location)
+        extract_data(jsondata,url,mobile,real_estate,type_id,date,real_estate_id,price,trans_type_id,location,query_param)
         #print(f"{url}\n")
         #export_csv("./file.csv",url,mobile,real_estate)
     export_excel('todoJunto.xlsx',url,mobile,real_estate,type_id,date,real_estate_id,price,trans_type_id,location)
