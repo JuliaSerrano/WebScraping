@@ -47,29 +47,11 @@ def insert_property(conn,property):
     conn.commit()
     return c.lastrowid
 
-def insert_price_history(conn,price_history):
-    """ insert price_history into price_history table
-    :param conn: Connection object
-    :param price_history: 
-    :return property id
-    """
-    sql =  ''' INSERT INTO price_history(id_price_date,id_product,retrieved_date,price)
-              VALUES(?,?,?,?) '''
-
-    c = conn.cursor()
-    c.execute(sql,price_history)
-    conn.commit()
-    return c.lastrowid
-
 def update_particular(conn):
     sql = '''  UPDATE properties SET agency = 'Particular' WHERE type_id = 1; '''
     c = conn.cursor()
     c.execute(sql)
     conn.commit()
-
-
-
-
 
 def export_to_db(conn,url,mobile,real_estate,date,real_estate_id,price,type_id,trans_type_id,location):
     today_date = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -77,8 +59,4 @@ def export_to_db(conn,url,mobile,real_estate,date,real_estate_id,price,type_id,t
         #properties
         property = (today_date,date[i],url[i],mobile[i],real_estate[i],real_estate_id[i],price[i],type_id[i],trans_type_id[i],location[i])
         id_product = insert_property(conn,property)
-
-        #price history
-        price_history = (str(id_product)+today_date,id_product,today_date,price[i])
-        insert_price_history(conn,price_history)
-        
+        return id_product

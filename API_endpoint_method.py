@@ -92,15 +92,6 @@ def main():
         
     ); """
 
-    
-    sql_create_price_history_table=""" CREATE TABLE IF NOT EXISTS price_history(
-        id_price_date PRIMARY KEY,
-        id_product INTEGER,
-        retrieved_date DATETIME NOT NULL,
-        price INTEGER,
-		FOREIGN KEY(id_product) REFERENCES properties(id_product)
-    ); """
-
 
 
     #create a database connection
@@ -110,9 +101,6 @@ def main():
     if conn is not None:
         # create properties table
         create_table(conn, sql_create_properties_table)
-
-        #create price_history table
-        create_table(conn, sql_create_price_history_table)
 
     else:
         print("Error! cannot create the database connection.")
