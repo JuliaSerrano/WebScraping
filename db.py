@@ -32,20 +32,20 @@ def create_table(conn, create_table_sql):
         print(e)
 
 
-
-def insert_property(conn,property):
+def insert_property(conn, property):
     """ insert property into the property table
     :param conn: Connection object
     :param property: 
     :return property id
     """
-    sql =  ''' INSERT INTO properties(retrieved_date,created_date,url,mobile,agency,real_estate_id,price,type_id,trans_type_id,location)
+    sql = ''' INSERT INTO properties(retrieved_date,created_date,url,mobile,agency,real_estate_id,price,type_id,trans_type_id,location)
               VALUES(?,?,?,?,?,?,?,?,?,?) '''
 
     c = conn.cursor()
-    c.execute(sql,property)
+    c.execute(sql, property)
     conn.commit()
     return c.lastrowid
+
 
 def update_particular(conn):
     sql = '''  UPDATE properties SET agency = 'Particular' WHERE type_id = 1; '''
@@ -53,10 +53,12 @@ def update_particular(conn):
     c.execute(sql)
     conn.commit()
 
-def export_to_db(conn,url,mobile,real_estate,date,real_estate_id,price,type_id,trans_type_id,location):
+
+def export_to_db(conn, url, mobile, real_estate, date, real_estate_id, price, type_id, trans_type_id, location):
     today_date = datetime.datetime.now().strftime("%Y-%m-%d")
-    for i in range(0,len(url)):
-        #properties
-        property = (today_date,date[i],url[i],mobile[i],real_estate[i],real_estate_id[i],price[i],type_id[i],trans_type_id[i],location[i])
-        id_product = insert_property(conn,property)
-        return id_product
+    for i in range(0, len(url)):
+        # properties
+        property = (today_date, date[i], url[i], mobile[i], real_estate[i],
+                    real_estate_id[i], price[i], type_id[i], trans_type_id[i], location[i])
+        id_product = insert_property(conn, property)
+    return id_product
