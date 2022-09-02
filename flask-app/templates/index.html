@@ -1,0 +1,12 @@
+<h1 class="pt-5 pb-2">Welcome to the Properties Scraper Statistics!</h1>
+
+<p class="lead">This is the index page for an example Flask app using a SQL database containing properties of different
+    locations.</p>
+
+<p>Select the location you want to search properties of:</p>
+
+<ul>
+    {% for l in locations %}
+    <li><a href="{{ url_for( 'property', location=l.location ) }}">{{ l.location }}</a></li>
+    {% endfor %}
+</ul>

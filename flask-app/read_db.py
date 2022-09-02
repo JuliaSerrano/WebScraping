@@ -1,6 +1,6 @@
 """ read from a SQLite database and return data """
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -39,20 +39,16 @@ class Property(db.Model):
 
 @app.route('/')
 def index():
-    try:
-        properties = Property.query.filter_by(
-            type_id=1, location='Majadahonda').order_by(Property.id_product).all()
-        property_text = '<ul>'
-        for property in properties:
-            property_text += '<li>' + property.url + \
-                ', ' + str(property.price) + '€' + '</li>'
-        property_text += '</ul>'
-        return property_text
-    except Exception as e:
-        # e holds description of the error
-        error_text = "<p>The error:<br>" + str(e) + "</p>"
-        hed = '<h1>Something is broken.</h1>'
-        return hed + error_text
+    # get a list of unique values in the style column
+    locations = Property.query.with_entities(Property.location).distinct()
+    return render_template('index.html', locations=locations)
+
+
+@app.route('/property/<location>')
+def property(location):
+    properties = Property.query.filter_by(
+        type_id=1).order_by(Property.id_product).distinct()
+    return render_template('list.html', properties=properties, location=location)
 
 
 if __name__ == '__main__':

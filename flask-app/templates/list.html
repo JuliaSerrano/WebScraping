@@ -1,0 +1,28 @@
+<h1 class="pt-5 pb-2">List of Properties</h1>
+
+<p class="lead alert alert-warning">This is a list of all the properties without agency linked located in
+    <strong>{{ location }}</strong>.
+</p>
+
+<p class="ml-4"><a href="{{ url_for('index') }}">Return to the index.</a></p>
+
+<table class="table">
+    <tr>
+        <th>Id Product</th>
+        <th>Retrieved Date</th>
+        <th>Created Date</th>
+        <th>Url</th>
+        <th>Price</th>
+    </tr>
+
+    <!-- here is a for-loop to give us all the properties -->
+    {% for property in properties %}
+    <tr>
+        <td>{{ property.id_product }}</td>
+        <td>{{ property.retrieved_date }}</td>
+        <td>${{ property.created_date }}</td>
+        <td>{{ property.url }}</td>
+        <td>{{ property.price }}</td>
+    </tr>
+    {% endfor %}
+</table>
