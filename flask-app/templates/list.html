@@ -4,7 +4,7 @@
     <strong>{{ location }}</strong>.
 </p>
 
-<p class="ml-4"><a href="{{ url_for('index') }}">Return to the index.</a></p>
+<p class="ml-4"><a href="{{ url_for('index') }}">Return to the index</a></p>
 
 <table class="table">
     <tr>
@@ -21,11 +21,11 @@
 
         <td>{{ property.id_product }}</td>
         <td>{{ property.retrieved_date }}</td>
-        <td>${{ property.created_date }}</td>
+        <td>{{ property.created_date }}</td>
         <td>
             <a href={{ property.url }}>Property Link</a>
         </td>
-        <td>{{ property.price }}</td>
+        <td><a>{{ property.price }} €</a></td>
     </tr>
     {% endfor %}
 </table>
