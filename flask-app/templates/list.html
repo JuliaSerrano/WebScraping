@@ -18,10 +18,13 @@
     <!-- here is a for-loop to give us all the properties -->
     {% for property in properties %}
     <tr>
+
         <td>{{ property.id_product }}</td>
         <td>{{ property.retrieved_date }}</td>
         <td>${{ property.created_date }}</td>
-        <td>{{ property.url }}</td>
+        <td>
+            <a href={{ property.url }}>Property Link</a>
+        </td>
         <td>{{ property.price }}</td>
     </tr>
     {% endfor %}
