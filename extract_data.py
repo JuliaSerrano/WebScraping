@@ -35,13 +35,15 @@ def extract_data(jsondata, url, mobile, real_estate, type_id, date, real_estate_
         # location
         level5 = home['address']['location']['level5']
         level7 = home['address']['location']['level7']
+        level8 = home['address']['location']['level8']
 
         if level5 == " Madrid Capital":
             if level7 == "Hortaleza" or level7 == "Fuencarral - El Pardo":
-                level8 = home['address']['location']['level8']
+                location.append(level8)
+            elif level8 == "Timón":
                 location.append(level8)
             else:
-                location.append(level5)
+                location.append(level7)
 
         elif level5 == "La Moraleja" and level7 == "Arroyo de la Vega":
             location.append(level7)
