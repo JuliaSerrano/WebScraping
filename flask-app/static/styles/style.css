@@ -1,0 +1,50 @@
+table,
+th,
+td {
+    border: 1px solid;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+th,
+td {
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+th {
+    background-color: #04AA6D;
+    color: white;
+}
+
+/*LINKS*/
+a.property_link {
+    text-decoration: none;
+}
+
+/* color link */
+a.property_link:link,
+a.property_link:visited {
+    color: #04AA6D;
+}
+
+
+/* mouse over link */
+a.property_link:hover {
+    color: rgb(36, 104, 24);
+    text-decoration: underline;
+}
+
+/* selected link */
+a.property_link:active {
+    color: rgb(11, 11, 11);
+    text-decoration: underline;
+}
