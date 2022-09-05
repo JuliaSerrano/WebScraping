@@ -9,4 +9,3 @@ Flask-SQLAlchemy==1.4.40
 gunicorn==20.1.0
 click>=8.0
 Jinja2>=3.0
--U Flask-SQLAlchemy
