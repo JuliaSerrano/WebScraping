@@ -16,6 +16,7 @@ real_estate_id = []
 price = []
 trans_type_id = []
 location = []
+num_days = []
 
 # dic with query parametres from search
 # combinedLocationIds,latitude,longitude
@@ -67,15 +68,15 @@ def main():
     # for each page, extract data and export to excel
     for jsondata in data:
         extract_data(jsondata, url, mobile, real_estate, type_id, date,
-                     real_estate_id, price, trans_type_id, location, query_param)
+                     real_estate_id, price, trans_type_id, location, num_days)
         # print(f"{url}\n")
         # export_csv("./file.csv",url,mobile,real_estate)
     export_excel('todoJunto.xlsx', url, mobile, real_estate, type_id,
-                 date, real_estate_id, price, trans_type_id, location)
+                 date, real_estate_id, price, trans_type_id, location, num_days)
     print("Location scraped and exported to excel")
 
     # # #database
-    database = 'prices_tracker.db'
+    database = 'num_days_test.db'
 
     sql_create_properties_table = """ CREATE TABLE IF NOT EXISTS properties(
         id_product INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -88,7 +89,8 @@ def main():
         price INTEGER,
         type_id INTEGER,
         trans_type_id INTEGER,
-        location TEXT
+        location TEXT,
+        num_days INTEGER
         
     ); """
 
@@ -105,7 +107,7 @@ def main():
 
     # insert into tables
     export_to_db(conn, url, mobile, real_estate, date,
-                 real_estate_id, price, type_id, trans_type_id, location)
+                 real_estate_id, price, type_id, trans_type_id, location, num_days)
     update_particular(conn)
     print('Data exported to database succesfully')
 

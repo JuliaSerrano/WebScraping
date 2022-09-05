@@ -38,8 +38,8 @@ def insert_property(conn, property):
     :param property: 
     :return property id
     """
-    sql = ''' INSERT INTO properties(retrieved_date,created_date,url,mobile,agency,real_estate_id,price,type_id,trans_type_id,location)
-              VALUES(?,?,?,?,?,?,?,?,?,?) '''
+    sql = ''' INSERT INTO properties(retrieved_date,created_date,url,mobile,agency,real_estate_id,price,type_id,trans_type_id,location,num_days)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?) '''
 
     c = conn.cursor()
     c.execute(sql, property)
@@ -54,11 +54,11 @@ def update_particular(conn):
     conn.commit()
 
 
-def export_to_db(conn, url, mobile, real_estate, date, real_estate_id, price, type_id, trans_type_id, location):
+def export_to_db(conn, url, mobile, real_estate, date, real_estate_id, price, type_id, trans_type_id, location, num_days):
     today_date = datetime.datetime.now().strftime("%Y-%m-%d")
     for i in range(0, len(url)):
         # properties
-        property = (today_date, date[i], url[i], mobile[i], real_estate[i],
-                    real_estate_id[i], price[i], type_id[i], trans_type_id[i], location[i])
-        id_product = insert_property(conn, property)
+        prop = (today_date, date[i], url[i], mobile[i], real_estate[i],
+                real_estate_id[i], price[i], type_id[i], trans_type_id[i], location[i], num_days[i])
+        id_product = insert_property(conn, prop)
     return id_product

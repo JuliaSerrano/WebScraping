@@ -1,9 +1,9 @@
-
+from datetime import datetime, date
 
 link = 'https://www.fotocasa.es'
 
 
-def extract_data(jsondata, url, mobile, real_estate, type_id, date, real_estate_id, price, trans_type_id, location, query_param):
+def extract_data(jsondata, url, mobile, real_estate, type_id, created_date, real_estate_id, price, trans_type_id, location, num_days):
 
     # iterate for each property
     for home in jsondata['realEstates']:
@@ -20,7 +20,7 @@ def extract_data(jsondata, url, mobile, real_estate, type_id, date, real_estate_
         type_id.append(home['advertiser']['typeId'])
 
         # date after T, it gets time. Only get date
-        date.append((home['date']).partition("T")[0])
+        created_date.append((home['date']).partition("T")[0])
 
         # extract real estate id
         real_estate_id.append((home['id']))
@@ -49,3 +49,8 @@ def extract_data(jsondata, url, mobile, real_estate, type_id, date, real_estate_
             location.append(level7)
         else:
             location.append(level5)
+
+        # num days on sale/rent
+        today = datetime.now()
+        date_time_obj = datetime.strptime(created_date[-1], '%Y-%m-%d')
+        num_days.append((today - date_time_obj).days)
