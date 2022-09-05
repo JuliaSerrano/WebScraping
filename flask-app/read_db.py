@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 # the name of the database; add path if necessary
-db_name = '../prices_tracker.db'
+db_name = '../num_days_test.db'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_name
 
@@ -33,13 +33,14 @@ class Property(db.Model):
     type_id = db.Column(db.Integer)
     trans_type_id = db.Column(db.Integer)
     location = db.Column(db.Text)
+    num_days = db.Column(db.Integer)
+
 
 # routes
 
-
 @app.route('/')
 def index():
-    # get a list of unique values in the style column
+    # get a list of unique values in the url column
     locations = Property.query.with_entities(Property.location).distinct()
     return render_template('index.html', locations=locations)
 

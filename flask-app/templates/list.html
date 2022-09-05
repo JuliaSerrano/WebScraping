@@ -13,6 +13,7 @@
         <th>Created Date</th>
         <th>Url</th>
         <th>Price</th>
+        <th>Num days on sale/rent</th>
     </tr>
 
     <!-- here is a for-loop to give us all the properties -->
@@ -25,7 +26,8 @@
         <td>
             <a href={{ property.url }}>Property Link</a>
         </td>
-        <td><a>{{ property.price }} €</a></td>
+        <td><a>{{ property.price }}€</a></td>
+        <td>{{ property.num_days }}</td>
     </tr>
     {% endfor %}
 </table>
