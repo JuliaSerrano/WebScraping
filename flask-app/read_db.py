@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 # the name of the database; add path if necessary
-db_name = '../num_days_test.db'
+db_name = '../prices-scraper.db'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_name
 
@@ -40,7 +40,7 @@ class Property(db.Model):
 
 @app.route('/')
 def index():
-    # get a list of unique values in the url column
+    # list of locations
     locations = Property.query.with_entities(Property.location).distinct()
     return render_template('index.html', locations=locations)
 
@@ -48,7 +48,7 @@ def index():
 @app.route('/property/<location>')
 def property(location):
     properties = Property.query.filter_by(
-        type_id=1, location=location).order_by(Property.id_product).distinct()
+        type_id=1, location=location).order_by(Property.url).distinct()
     return render_template('list.html', properties=properties, location=location)
 
 

@@ -76,7 +76,7 @@ def main():
     print("Location scraped and exported to excel")
 
     # # #database
-    database = 'num_days_test.db'
+    database = 'prices-scraper.db'
 
     sql_create_properties_table = """ CREATE TABLE IF NOT EXISTS properties(
         id_product INTEGER PRIMARY KEY AUTOINCREMENT,
