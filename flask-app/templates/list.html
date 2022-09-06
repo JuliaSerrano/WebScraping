@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Properties List</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
-
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/tablesort.css') }}">
 </head>
 
 <body>
@@ -20,31 +20,38 @@
 
     <p class="ml-4"><a href="{{ url_for('index') }}">Return to the index</a></p>
 
-    <table class="table">
-        <tr>
-            <th>Id Product</th>
-            <th>Retrieved Date</th>
-            <th>Created Date</th>
-            <th>Url</th>
-            <th>Price</th>
-            <th>Num days on sale/rent</th>
-        </tr>
+    <table class="table table-sortable">
+        <thead>
+            <tr>
+                <th>Id Product</th>
+                <th>Retrieved Date</th>
+                <th>Created Date</th>
+                <th>Url</th>
+                <th>Price</th>
+                <th>Num days on sale/rent</th>
+            </tr>
+        </thead>
+
 
         <!-- here is a for-loop to give us all the properties -->
-        {% for property in properties %}
-        <tr>
+        <tbody>
+            {% for property in properties %}
+            <tr>
+                <td>{{ property.id_product }}</td>
+                <td>{{ property.retrieved_date }}</td>
+                <td>{{ property.created_date }}</td>
+                <td>
+                    <a class="property_link" href={{ property.url }}>Property Link</a>
+                </td>
+                <td><a>{{ property.price }}</a></td>
+                <td>{{ property.num_days }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
 
-            <td>{{ property.id_product }}</td>
-            <td>{{ property.retrieved_date }}</td>
-            <td>{{ property.created_date }}</td>
-            <td>
-                <a class="property_link" href={{ property.url }}>Property Link</a>
-            </td>
-            <td><a>{{ property.price }}€</a></td>
-            <td>{{ property.num_days }}</td>
-        </tr>
-        {% endfor %}
     </table>
+
+    <script src="{{ url_for('static', filename='javascript/tablesort.js') }}"></script>
 
 </body>
 
