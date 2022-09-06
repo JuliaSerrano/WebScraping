@@ -45,7 +45,7 @@ def index():
     return render_template('index.html', locations=locations)
 
 
-@app.route('/property/<location>')
+@app.route('/property/<location>', methods=['GET', 'POST'])
 def property(location):
     properties = Property.query.filter_by(
         type_id=1, location=location).order_by(Property.url).distinct()

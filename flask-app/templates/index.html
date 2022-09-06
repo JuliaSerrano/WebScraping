@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Search Locations</title>
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"> -->
 </head>
 
@@ -18,11 +18,48 @@
 
     <p>Select the location you want to search properties of:</p>
 
+
+
+
+    <select id="select_location" name=locations method="GET" action="/">
+        <option value="{{locations[0].location}}" selected>{{locations[0].location}}</option>
+        {% for l in locations[1:] %}
+        <option value="{{l.location}}" href="{{ url_for( 'property', location=l.location ) }}">{{l.location}}</option>
+        {% endfor %}
+    </select>
+
+
+    <!-- {% for l in locations %}
+    <form class="form-inline" method="POST" action="{{ url_for('property', location = l.location) }}">
+        <div class="form-group">
+            <div class="input-group">
+
+                <select name="comp_select" class="selectpicker form-control">
+
+                    <option value="{{ l.location }}">{{ l.location }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-default">Go</button>
+        </div>
+    </form> -->
+
     <ul>
         {% for l in locations %}
         <li><a href="{{ url_for( 'property', location=l.location ) }}">{{ l.location }}</a></li>
         {% endfor %}
     </ul>
+
+
+
+    <script type="text/javascript">
+        function getOption() {
+            selectElement = document.querySelector('#select_location');
+            output = selectElement.value;
+            // document.querySelector('.output').textContent = output;
+            return output;
+        }
+    </script>
 </body>
 
 </html>
