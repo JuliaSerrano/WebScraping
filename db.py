@@ -67,9 +67,8 @@ def exist_db(conn, prop):
     # property exists
     return True
 
+
 # output boolean     T:diff price
-
-
 def change_price(conn, prop):
     sql = '''SELECT price FROM properties WHERE url = ?;'''
     c = conn.cursor()
@@ -86,11 +85,15 @@ def update_prop(conn, prop):
 
     c = conn.cursor()
     # if same price -> update retrieved_date,num days on sale/rent
-    if(not change_price(conn, prop)):
+    if(change_price(conn, prop) == False):
+        print(
+            f'same price, update retrieved_date: {prop[0]}, num_days: {prop[10]}, where url: {prop[2]}')
         sql_samep = '''UPDATE properties SET retrieved_date = ?, num_days = ? WHERE url = ?'''
-        c.execute(sql_samep, [prop[0], prop[2], prop[10]])
+        c.execute(sql_samep, [prop[0], prop[10], prop[2]])
     # if diff price -> update retrieved_date, price and num_days
     else:
+        print(
+            f'diff price, update retrieved_date: {prop[0]}, price: {prop[6]}, num_days: {prop[10]} where url: {prop[2]}')
         sql_diffp = '''UPDATE properties SET retrieved_date = ?,price = ?, num_days = ? WHERE url = ?'''
         c.execute(sql_diffp, [prop[0], prop[6], prop[2], prop[10]])
     conn.commit()
@@ -103,8 +106,8 @@ def export_to_db(conn, url, mobile, real_estate, date, real_estate_id, price, ty
         prop = (today_date, date[i], url[i], mobile[i], real_estate[i],
                 real_estate_id[i], price[i], type_id[i], trans_type_id[i], location[i], num_days[i])
         # new property
-        if(not exist_db(conn, prop)):
-            id_product = insert_property(conn, prop)
+        if(exist_db(conn, prop) == False):
+            insert_property(conn, prop)
 
         # already in db -> update prop (not store again)
         else:
