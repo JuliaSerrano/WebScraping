@@ -17,6 +17,7 @@ price = []
 trans_type_id = []
 location = []
 num_days = []
+updated_date = []
 
 # dic with query parametres from search
 # combinedLocationIds,latitude,longitude
@@ -76,7 +77,7 @@ def main():
     print("Location scraped and exported to excel")
 
     # # #database
-    database = 'prices-scraper.db'
+    database = 'fotocasa-scraper.db'
 
     sql_create_properties_table = """ CREATE TABLE IF NOT EXISTS properties(
         id_product INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -90,7 +91,8 @@ def main():
         type_id INTEGER,
         trans_type_id INTEGER,
         location TEXT,
-        num_days INTEGER
+        num_days INTEGER,
+        updated_date DATETIME
         
     ); """
 

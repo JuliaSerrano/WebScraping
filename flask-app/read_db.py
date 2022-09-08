@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 # the name of the database; add path if necessary
-db_name = '../prices-scraper.db'
+db_name = '../fotocasa-scraper.db'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_name
 
@@ -34,6 +34,7 @@ class Property(db.Model):
     trans_type_id = db.Column(db.Integer)
     location = db.Column(db.Text)
     num_days = db.Column(db.Integer)
+    updated_date = db.Column(db.Date)
 
 
 # routes
