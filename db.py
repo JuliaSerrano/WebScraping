@@ -114,6 +114,15 @@ def update_prop(conn, prop):
         c.execute(sql_diffp, [prop[0], prop[6], num_days, prop[1], prop[2]])
     conn.commit()
 
+# if the advertisement is deleted, delete property from db
+
+
+def delete_prop(conn, today_date):
+    sql = '''DELETE FROM properties WHERE NOT retrieved_date = ?'''
+    c = conn.cursor()
+    c.execute(sql, [today_date])
+    conn.commit()
+
 
 def export_to_db(conn, url, mobile, real_estate, date, real_estate_id, price, type_id, trans_type_id, location, num_days):
     today_date = datetime.now().strftime("%Y-%m-%d")
@@ -142,3 +151,6 @@ def export_to_db(conn, url, mobile, real_estate, date, real_estate_id, price, ty
         # already in db -> update prop (not store again)
         else:
             update_prop(conn, prop)
+
+        # delete expired properties
+        delete_prop(conn, today_date)
