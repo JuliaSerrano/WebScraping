@@ -7,30 +7,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Locations</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet'>
 </head>
 
-<body>
-    <h1 class="pt-5 pb-2">Welcome to the Properties Scraper Statistics!</h1>
 
-    <p class="lead">This is the index page for an example Flask app using a SQL database containing properties of
-        different
-        locations.</p>
+<body id = "index_body">
+    <h1 class="pt-5 pb-2" style="margin-top: 50px;text-align: center; font-size:40px;">Welcome to the Properties Scraper Statistics!</h1>
 
-    <p>Select the location you want to search properties of:</p>
+    <p class="lead" style="margin-top: 50px;text-align: center;">Agency assistant which makes finding real-estate properties from individuals easier</p>
 
+    
 
 
 
-        <select id="dropdown" name=locations method="GET" action="/" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-            <option value = "">SELECT </option>
-            <!-- <option value="{{locations[0].location}}" selected>{{locations[0].location}}</option> -->
-            {% for l in locations[0:] %}
-            <option value = "{{ url_for( 'property', location=l.location ) }}" href="{{ url_for( 'property', location=l.location ) }}">
-                {{l.location}}</option>
-            {% endfor %}
+    <div class = "search_prop">
+        <h2 class = "search_prop_header">
+            Search property in ...
+        </h2>
+        <div class = "search_prop_body">
 
-        </select>
+            <select id = "dropdown" name=locations method="GET" action="/" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                <option value = "" > SELECT </option>
+                {% for l in locations[0:] %}
+                <option value = "{{ url_for( 'property', location=l.location ) }}" href="{{ url_for( 'property', location=l.location ) }}">
+                    {{l.location}}</option>
+                {% endfor %}
+    
+            </select>
+
+        </div>
+
+    </div>
+
+
+       
+
    
 
 
