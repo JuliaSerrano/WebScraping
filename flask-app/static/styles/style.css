@@ -14,18 +14,21 @@ table,
 th,
 td {
     border: 1px solid;
+    
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-
+    
 }
-
+    
+    
 th,
 td {
     text-align: center;
     padding: 8px;
+    
 }
 
 tr:nth-child(even) {
@@ -33,13 +36,13 @@ tr:nth-child(even) {
 }
 
 th {
-    background-color: #04AA6D;
+    background-color: rgb(84, 134, 135);
     color: white;
 }
 
 
 /* Index headers */
-.index_header{
+.index_header, .list_header {
     margin-top: 50px;
     text-align: center;
     
@@ -95,13 +98,13 @@ a.property_link {
 /* color link */
 a.property_link:link,
 a.property_link:visited {
-    color: #04AA6D;
+    color: rgb(28, 58, 58);
 }
 
 
 /* mouse over link */
 a.property_link:hover {
-    color: rgb(36, 104, 24);
+    color: rgb(68, 181, 48);
     text-decoration: underline;
 }
 
@@ -109,5 +112,44 @@ a.property_link:hover {
 a.property_link:active {
     color: rgb(11, 11, 11);
     text-decoration: underline;
+}
+
+
+.return_btn{
+    display: inline-block;
+    padding: .75rem 1.25rem;
+    border-radius: 10rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: .15rem;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    background-color: rgb(52, 138, 140);
+}
+.return_btn:hover{
+   
+    /* content: ''; */
+    /* position: absolute; */
+    /* bottom: 0;
+    left: 0; */
+    /* width: 100%; */
+    /* height: 100%; */
+    background-color: rgb(38, 170, 132);
+    border-radius: 5rem;
+    /* z-index: -2; */
+       
+}
+.btn_link{
+    text-decoration: none;
+    color: #fff;
+}
+.btn_container{
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
