@@ -38,6 +38,12 @@ th {
 }
 
 
+/* Index headers */
+.index_header{
+    margin-top: 50px;
+    text-align: center;
+    
+}
 /* Dropdown (index.html) */
 #dropdown{
     border-radius: 10px;
@@ -73,10 +79,6 @@ option{
 .search_prop_header{
     color: #fff;
     font-size: 30px;
-    font-weight: 700;
-    letter-spacing: -1px;
-    line-height: 33.6px;
-    margin: 0 0 8px;
     text-align: center;
     margin-bottom: 35px;
     margin-top: 20px;
