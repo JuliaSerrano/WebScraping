@@ -42,7 +42,8 @@ class Property(db.Model):
 @app.route('/')
 def index():
     # list of locations
-    locations = Property.query.with_entities(Property.location).distinct()
+    locations = Property.query.with_entities(
+        Property.location).distinct().order_by(Property.location)
     return render_template('index.html', locations=locations)
 
 
