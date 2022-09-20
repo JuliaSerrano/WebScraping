@@ -72,9 +72,9 @@ def main():
                      real_estate_id, price, trans_type_id, location, num_days)
         # print(f"{url}\n")
         # export_csv("./file.csv",url,mobile,real_estate)
-    export_excel('todoJunto.xlsx', url, mobile, real_estate, type_id,
-                 date, real_estate_id, price, trans_type_id, location, num_days)
-    print("Location scraped and exported to excel")
+    # export_excel('todoJunto.xlsx', url, mobile, real_estate, type_id,
+        #  date, real_estate_id, price, trans_type_id, location, num_days)
+    # print("Location scraped and exported to excel")
 
     # # #database
     database = 'fotocasa-scraper.db'
