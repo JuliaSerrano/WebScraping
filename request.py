@@ -3,25 +3,27 @@ import requests
 data = []
 url = "https://api.fotocasa.es/PropertySearch/Search"
 
-#makes a request for each page, returning json/page
-def request(location,number_pages,query_param,trans_type):
+# makes a request for each page, returning json/page
 
-    #change majadahonda por zona elegida
-    for x in range(1,number_pages+1):
+
+def request(location, number_pages, query_param, trans_type):
+
+    # change majadahonda por zona elegida
+    for x in range(1, number_pages+1):
         querystring = {
-        "combinedLocationIds":f"{query_param[location][0]}",
-        "culture":"es-ES",
-        "hrefLangCultures":"ca-ES;es-ES;de-DE;en-GB",
-        "isMap":"false",
-        "isNewConstructionPromotions":"false",
-        "latitude":f"{query_param[location][1]}",
-        "longitude":f"{query_param[location][2]}",
-        "pageNumber":f"{x}",
-        "platformId":"1",
-        "sortOrderDesc":"true",
-        "sortType":"scoring",
-        "transactionTypeId":f"{trans_type}",
-        "propertyTypeId":"2"
+            "combinedLocationIds": f"{query_param[location][0]}",
+            "culture": "es-ES",
+            "hrefLangCultures": "ca-ES;es-ES;de-DE;en-GB",
+            "isMap": "false",
+            "isNewConstructionPromotions": "false",
+            "latitude": f"{query_param[location][1]}",
+            "longitude": f"{query_param[location][2]}",
+            "pageNumber": f"{x}",
+            "platformId": "1",
+            "sortOrderDesc": "true",
+            "sortType": "scoring",
+            "transactionTypeId": f"{trans_type}",
+            "propertyTypeId": "2"
         }
 
         payload = ""
@@ -39,15 +41,8 @@ def request(location,number_pages,query_param,trans_type):
             "TE": "trailers"
         }
 
-        r = requests.request("GET", url, data=payload, headers=headers, params=querystring)
-        data.append(r.json()) 
+        r = requests.request("GET", url, data=payload,
+                             headers=headers, params=querystring)
+        data.append(r.json())
 
-    
-
-    return data 
-
-
-    
-
-
-
+    return data
