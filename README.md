@@ -74,6 +74,7 @@ cd WebScraping
 pip install -r requirements.txt
 ```
 
+
 3. Run the script
 ```
 python3 API_endpoint_method.py
