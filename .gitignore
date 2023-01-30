@@ -1,6 +1,6 @@
 
 .~lock.LaMoraleja.xlsx#
-__pycache__/
+
 *.json
 *.xlsx
 *.csv
