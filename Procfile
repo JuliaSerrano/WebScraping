@@ -1,1 +1,1 @@
-web: gunicorn flask-app/read_db:app
+web: gunicorn flask-app.read_db:app
