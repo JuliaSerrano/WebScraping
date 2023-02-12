@@ -1,0 +1,21 @@
+language: python
+python:
+  - "3.7"
+services:
+  - Flask
+  - Flask-SQLAlchemy
+  - SQLAlchemy
+  - Gunicorn
+# env:
+#   - FLASK_APP=flask-app/read_db.py
+install:
+  - pip install -r requirements.txt
+script:
+  - cd flask-app
+  - gunicorn read_db:app
+deploy:
+  provider: script
+  script: aws s3 sync . s3://my-flask-app --delete
+  skip_cleanup: true
+  on:
+    branch: master
