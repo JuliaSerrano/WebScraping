@@ -5,6 +5,7 @@ from exports import export_csv, export_excel
 from extract_data import extract_data
 from db import export_to_db, create_connection, create_table, update_particular
 
+import json
 
 # data to be extracted
 url = []
@@ -62,10 +63,11 @@ def main():
     for key, value in query_param.items():
         for transaction in trans_type:
             data = open_json_request(key, 10, query_param, transaction)
-
     # request for each page, store in data
     # data = open_json_request(location,number_pages,query_param,trans_type)
 
+    with open('output.json', 'w') as outfile:
+        json.dump(data, outfile)
     # for each page, extract data and export to excel
     for jsondata in data:
         extract_data(jsondata, url, mobile, real_estate, type_id, date,

@@ -1,7 +1,14 @@
 import requests
+import json
+import pandas as pd
+import brotlicffi
+import brotli
+import gzip
+from io import BytesIO
+import zlib
 
 data = []
-url = "https://api.fotocasa.es/PropertySearch/Search"
+url = "https://web.gw.fotocasa.es/v2/propertysearch/search?"
 
 # makes a request for each page, returning json/page
 
@@ -28,21 +35,22 @@ def request(location, number_pages, query_param, trans_type):
 
         payload = ""
         headers = {
-            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:101.0) Gecko/20100101 Firefox/101.0",
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/110.0",
             "Accept": "application/json, text/plain, */*",
             "Accept-Language": "en-US,en;q=0.5",
             "Accept-Encoding": "gzip, deflate, br",
-            "Referer": "https://www.fotocasa.es/",
             "Origin": "https://www.fotocasa.es",
             "Connection": "keep-alive",
+            "Referer": "https://www.fotocasa.es/",
             "Sec-Fetch-Dest": "empty",
             "Sec-Fetch-Mode": "cors",
             "Sec-Fetch-Site": "same-site",
+            "Pragma": "no-cache",
+            "Cache-Control": "no-cache",
             "TE": "trailers"
         }
 
         r = requests.request("GET", url, data=payload,
                              headers=headers, params=querystring)
         data.append(r.json())
-
     return data

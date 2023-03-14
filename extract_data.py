@@ -4,7 +4,8 @@ link = 'https://www.fotocasa.es'
 
 
 def extract_data(jsondata, url, mobile, real_estate, type_id, created_date, real_estate_id, price, trans_type_id, location, num_days):
-
+    if 'realEstates' not in jsondata:
+        return
     # iterate for each property
     for home in jsondata['realEstates']:
         # extract url

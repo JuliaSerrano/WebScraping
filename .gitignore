@@ -5,3 +5,6 @@
 *.xlsx
 *.csv
 __pycache__/
+myenv/
+prices_tracker.db
+*.yml

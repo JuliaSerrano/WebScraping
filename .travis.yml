@@ -7,12 +7,12 @@ services:
   - SQLAlchemy
   - Gunicorn
 # env:
-#   - FLASK_APP=flask-app/read_db.py
+#   - FLASK_APP=flask-app/app.py
 install:
   - pip install -r requirements.txt
 script:
   - cd flask-app
-  - gunicorn read_db:app
+  - gunicorn app:app
 deploy:
   provider: script
   script: aws s3 sync . s3://my-flask-app --delete
