@@ -66,8 +66,8 @@ def main():
     # request for each page, store in data
     # data = open_json_request(location,number_pages,query_param,trans_type)
 
-    with open('output.json', 'w') as outfile:
-        json.dump(data, outfile)
+    # with open('output.json', 'w') as outfile:
+    #     json.dump(data, outfile)
     # for each page, extract data and export to excel
     for jsondata in data:
         extract_data(jsondata, url, mobile, real_estate, type_id, date,
